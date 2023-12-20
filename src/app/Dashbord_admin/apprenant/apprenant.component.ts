@@ -78,10 +78,36 @@ emelementSelectioner : any ;
 
 // constructeur
 constructor() {};
+
+// variable pour recuper donne classe et matiere
+recupMatiere : any;
+  dataMatiere!: any[];
+  recupClass : any;
+  dataClasse! : any [];
+  selectedItem: any;
+
 // implemantion de ngOnitt pour l'initialisation des donnees
+
 ngOnInit(): void {
    //* tous les methodes pour manipuler les diiferents local storage
 
+   this.recupMatiere = localStorage.getItem('Matiere');
+     if (this.recupMatiere) {
+
+       this.dataMatiere= JSON.parse(this.recupMatiere);
+      //  console.warn(this.dataMatiere);
+     } else {
+       // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
+   }
+
+
+   this.recupClass= localStorage.getItem('Classe');
+     if (this.recupClass) {
+       this.dataClasse = JSON.parse(this.recupClass);
+      //  this.usersdata = this.dataClasse;
+     } else {
+       // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
+   }
 
    this.storedUsers = localStorage.getItem('Schooluser');
    console.log(this.storedUsers);
@@ -132,12 +158,15 @@ ngOnInit(): void {
 
 }
 
+selectedClasse: string = '';
+idappreanant : any;
+
 // methode pour ajouter des elements
 
 SoumettreFormlaire (validForm : NgForm){
   // assiger sur le Local des id pour chak apprenant
   this.formuStudent.id = this.usersdata.length + 1;
-
+this.idappreanant = this.formuStudent.id
   // ajouter le formulaire dans le tableau
 
       // avec le destructuring {...} pour recuperer pour crer une copie de l'objet

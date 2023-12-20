@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <button type="button" id="btn1" class="btn btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 80px; margin-left: 90px; margin-bottom: 20px;">
+  <button type="button" class="btn btn-outline-warning fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 80px; margin-left: 90px; margin-bottom: 20px;">
     Ajouter un formateur
   </button>
 
@@ -100,20 +100,18 @@
               <input type="password" name="password" class="form-control" placeholder="Password"
                 [(ngModel)]="formDataregister.password">
             </div>
+            <label for="matiere" class="form-label">Matiere</label>
             <select class="form-select"  name="matiere" [(ngModel)]="formDataregister.matiere">
-              <option selected>Open this select menu</option>
-              <option value="Html">HTML</option>
-              <option value="CSS">CSS</option>
-              <option value="Javascript">JAVASCRIPT</option>
+              <option *ngFor="let item of dataMatiere" [value]="item.matiere"> {{item.matiere}} </option>
+
             </select>
+            <label for="niveau" class="form-label">Classe</label>
             <select class="form-select" name="niveau" [(ngModel)]="formDataregister.niveau">
-              <option selected>Open this select menu</option>
-              <option value="Licence 1">Licence 1</option>
-              <option value="Licence 2">Licence 2</option>
-              <option value="Licence 3">Licence 3</option>
+              <option *ngFor="let item of dataClasse" [value]="item.niveau"> {{item.niveau}} </option>
+
             </select>
-            <div class="mb-3">
-              <button type="submit" class="btn btn-primary">Save changes</button>
+            <div class="mb-3 d-flex justify-content-end mt-2">
+              <button type="submit" class="btn text-white fw-bold col-6" data-bs-dismiss="modal" appCouleurfond>Save changes</button>
             </div>
           </form>
         </div>

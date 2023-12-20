@@ -54,8 +54,32 @@ export class DashbordProfesseurComponent {
   constructor(private router: Router, private userService: UserserviceService) {
   }
 
+  recupMatiere : any;
+  dataMatiere!: any[];
+  recupClass : any;
+  dataClasse! : any [];
+  selectedItem: any;
+  selectedItemclasse : any;
+
   // la methode ngOnInit dans la quelle on recupere notre tableau d'objet
   ngOnInit(): void {
+
+    this.recupMatiere = localStorage.getItem('Matiere');
+    if (this.recupMatiere) {
+
+      this.dataMatiere= JSON.parse(this.recupMatiere);
+     //  console.warn(this.dataMatiere);
+    } else {
+      // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
+  }
+
+
+  this.recupClass= localStorage.getItem('Classe');
+    if (this.recupClass) {
+      this.dataClasse = JSON.parse(this.recupClass);
+    } else {
+      // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
+  }
     this.storedUsers = localStorage.getItem('Schooluser');
     if (this.storedUsers) {
       this.usersdata = JSON.parse(this.storedUsers);

@@ -72,7 +72,10 @@
                       <td > {{element.prenom}} </td>
                       <td>{{element.nom}} </td>
                       <td>{{element.email}} </td>
-                      <td>{{element.niveau}}</td>
+                      <div *ngFor="let item of dataClasse">
+                        <td>{{item.niveau}}</td>
+
+                      </div>
                       <td>{{element.annee}} </td>
                       <td>
                          <div class="d-flex justify-content-evenly">
@@ -170,26 +173,24 @@
             <input type="date" name="annee" id="annee" placeholder="annee" [(ngModel)]="formuStudent.annee" >
           </div>
           <div class="col-md-12">
-            <label for="adresse" class="form-label">Niveau:</label>
-            <select class="form-select form-select-sm mb-3" name="niveau" aria-label="Large select example" required="" [(ngModel)]="formuStudent.niveau" #niveauVerif="ngModel"
+            <label for="adresse" class="form-label">Classe:</label>
+            <select class="form-select form-select-sm mb-3" name="niveau" aria-label="Large select example" required="" [(ngModel)]="selectedClasse" #niveauVerif="ngModel"
             [ngClass]="{'is-invalid':niveauVerif.touched && !niveauVerif.valid}" >
             <div class="invalid-feedback">
               <span *ngIf="niveauVerif.errors">
-              ajouter le niveau
+              ajouter la classe
               </span>
             </div>
-              <option selected>choisis le niveau</option>
-              <option value="L1">L1</option>
-              <option value="L2">L2</option>
-              <option value="L3">L3</option>
+              <option *ngFor="let item of dataClasse" [value]="item.niveau"> {{item.niveau}} </option>
+
             </select>
           </div>
-          <button class="btn btn-primary" type="submit" [disabled]="!validForm.valid"  >Ajouter</button>
+          <button class="btn text-white fw-bold col-6" type="submit" data-bs-dismiss="modal" [disabled]="!validForm.valid" appCouleurfond   >Ajouter</button>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>

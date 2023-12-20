@@ -5,7 +5,7 @@
       <li><img
           src="https://img.freepik.com/free-vector/international-student-day-banner-design_1308-122226.jpg?size=626&ext=jpg&uid=R119572586&ga=GA1.1.662083046.1696519376&semt=ais"
           alt="" srcset="" alt=""></li>
-      <li>Thierno Habib Bah</li>
+      <li></li>
     </ul>
   </div>
   <div class="Section">
@@ -13,17 +13,23 @@
       <img
         src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.1.662083046.1696519376&semt=ais"
         alt="">
-      <div class="Information">
-        <p>ID: 2</p>
-        <p>Nom: Bah</p>
-        <p>Prenom: Thierno Habib</p>
-        <p>Email: thiernohabibbah176gmail.com</p>
-        <p>Niveau: Licence 2</p>
-        <div class="Mdp">
-          <p class="text-warning">Mot de passe: **********</p>
-          <button class="btn btn">Changer Mot de passe</button>
+
+          <div class="Information" *ngFor=" let item of dataapprenant" >
+
+            <div class="" *ngIf="item.role==3 && item.etat==1 && item.id === idappreanant ">
+              <p> {{item.nom}} </p>
+              <p>{{item.prenom}}</p>
+              <p>{{item.email}}</p>
+              <p>{{item.niveau}}</p>
+              <div class="Mdp">
+                <p class="text-warning">Mot de passe: {{item.password}}</p>
+                <button class="btn btn">Changer Mot de passe</button>
+              </div>
+            </div>
+
+
+
         </div>
-      </div>
       <div class="demi-cercle1"></div>
     </div>
     <div class="Section_note">

@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./user-professeur.component.css']
 })
 export class UserProfesseurComponent implements OnInit {
- 
+
   public Evaluation: any[] = [
     {
       id: '',
@@ -19,7 +19,13 @@ export class UserProfesseurComponent implements OnInit {
       professeur: '',
       niveau: ''
     }
-  ]
+  ];
+  public Matiere: any[] = [
+    {
+      id: '',
+      matiere :""
+    }
+  ];
   public classes:  any[] = [
     {
       id: '',
@@ -28,7 +34,7 @@ export class UserProfesseurComponent implements OnInit {
       nomClasse: '',
       noteEleve: '',
 
-    
+
     }
   ]
 
@@ -46,6 +52,7 @@ export class UserProfesseurComponent implements OnInit {
 
   public storeEvaluation: any;
   public userEvaluation: any;
+ public  dataEvaluation : any;
   // public addEvaluation: any;
 
   public storeNotes: any;
@@ -58,7 +65,7 @@ export class UserProfesseurComponent implements OnInit {
 
   public classUser: any;
 
-  
+
 
   //valeur du filter qui correspond a celui du champs recherche
   filterValue = '';
@@ -66,90 +73,89 @@ export class UserProfesseurComponent implements OnInit {
   filteredElement:any;
 
 
-addProf: any={};
-dataEvaluation : any;
+formuEvaluation: any={
+  id: 0,
+  semestre: '',
+  date: '',
+  type: '',
+  etat: '',
+  matiere: '',
+  professeur: '',
+  niveau: ''
+};
+
+
+
 
 //variable classe
-maClasse: any={};
-dataClasse : any;
+
+recupMatiere : any;
+  dataMatiere!: any[];
+  recupClass : any;
+  dataClasse! : any [];
+  selectedItem: any;
   ngOnInit(): void {
-    console.log(this.storedUsers);
-    this.storedUsers = localStorage.getItem('Schooluser');
-    console.log(this.storedUsers);
-     if (this.storedUsers) {
-       this.usersdata = JSON.parse(this.storedUsers);
+   this.recupMatiere = localStorage.getItem('Matiere');
+     if (this.recupMatiere) {
+
+       this.dataMatiere= JSON.parse(this.recupMatiere);
+      //  console.warn(this.dataMatiere);
      } else {
        // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
    }
 
-   this.storeMatiere = localStorage.getItem('Matiere');
-     if (this.storedUsers) {
 
-       this.usersMat = JSON.parse(this.usersMat);
-     } else {
-       // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
-   }
-   
-
-   this.storeclasse = localStorage.getItem('Classe');
-     if (this.storeclasse) {
-       this.userClasse = JSON.parse(this.userClasse);
+   this.recupClass= localStorage.getItem('Classe');
+     if (this.recupClass) {
+       this.dataClasse = JSON.parse(this.recupClass);
      } else {
        // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
    }
 
-   this.dataEvaluation = localStorage.getItem('evalue');
-   if (this.dataEvaluation){
-   this.userEvaluation = JSON.parse(this.dataEvaluation);
+   this.storeEvaluation = localStorage.getItem('evalue');
+   if (this.storeEvaluation){
+   this.userEvaluation = JSON.parse(this.storeEvaluation);
+   console.warn(this.userEvaluation);
    }
-  //  else { 
-  //         localStorage.setItem('evalue', JSON.stringify(this.Evaluation));
-          
-  //  }
+    else {
+          localStorage.setItem('evalue', JSON.stringify(this.Evaluation));
 
-   //localStorage classes
-   const dataClasse = localStorage.getItem('classe');
-if(dataClasse){
-this.classes = JSON.parse(dataClasse);
-}
-   else {
-          localStorage.setItem('classe', JSON.stringify(this.classes));
    }
-  
+
+
+
 
 }
 
 
 addEvaluation(){
+this.formuEvaluation.id = this.userEvaluation.length + 1
+// DESTRUCTURING POUR AJOUT DE CHAK ELEMENT DANS TABLEAU
+this.userEvaluation.push({...this.formuEvaluation});
+// vider les champs apres ajout
+this.formuEvaluation ={};
+// stock dans le localstorage
+this.saveEvaluation ();
 
-  this.addProf.id = this.Evaluation.length + 1;
-  this.Evaluation.push(this.addProf);
-  this.saveEvaluation();
-  this.addProf ={};
- 
+
+
  }
- 
+
  saveEvaluation(){
-   localStorage.setItem('evalue', JSON.stringify(this.Evaluation));
+   localStorage.setItem('evalue', JSON.stringify(this.userEvaluation));
  }
 
-   // Methode de recherche automatique 
+   // Methode de recherche automatique
    onSearch(){
-    // Recherche se fait selon le nom ou le prenom 
+    // Recherche se fait selon le nom ou le prenom
     this.filteredElement = this.Evaluation.filter(
       (elt:any) => (elt?.matiere.toLowerCase().includes(this.filterValue.toLowerCase())) || elt?.date.toLowerCase().includes(this.filterValue.toLowerCase())
     );
   }
 
   //recuperation des objets de la classe
-  
-  addeClasse(){
-    this.classes.push(this.maClasse);
-    this.saveClasse();
-    this.maClasse ={};
-   
-   }
-   
+
+
    saveClasse(){
      localStorage.setItem('classe', JSON.stringify(this.classes));
    }
@@ -163,6 +169,6 @@ addEvaluation(){
   //  test
 
 
-   
-    
+
+
 
