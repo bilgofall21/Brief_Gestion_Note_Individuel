@@ -61,15 +61,13 @@ public Schooluser: any[] = [
 // modele pour formulaire
 
 formuStudent : any = {
-id : 0,
+id : '',
 nom: '',
 prenom:'' ,
 password : '',
 email : '',
 niveau : '',
 annee : '',
-role:'3',
-etat: '1',
 };
 
 emelementSelectioner : any ;
@@ -167,10 +165,28 @@ SoumettreFormlaire (validForm : NgForm){
   // assiger sur le Local des id pour chak apprenant
   this.formuStudent.id = this.usersdata.length + 1;
 this.idappreanant = this.formuStudent.id
+let nomapprenant = this.formuStudent.nom
+let prenomapprenant = this.formuStudent.prenom
+let emailapprenant = this.formuStudent.email
+let passwordapprenant = this.formuStudent.password
+let niveauapprenant = this.formuStudent.niveau
+let anneeapprenant = this.formuStudent.annee
+
+
   // ajouter le formulaire dans le tableau
 
       // avec le destructuring {...} pour recuperer pour crer une copie de l'objet
-  this.usersdata.push({...this.formuStudent});
+  this.usersdata.push({
+    id: this.usersdata.length + 1,
+    nom: nomapprenant,
+    prenom: prenomapprenant,
+    email: emailapprenant,
+    password: passwordapprenant,
+    niveau: niveauapprenant,
+    annee: anneeapprenant,
+    role: '3',
+    etat: '1',
+  });
   console.log(this.Schooluser);
    // vider le formulaire apre ajout
   this.formuStudent = {};

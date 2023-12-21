@@ -72,10 +72,10 @@
                       <td > {{element.prenom}} </td>
                       <td>{{element.nom}} </td>
                       <td>{{element.email}} </td>
-                      <div *ngFor="let item of dataClasse">
-                        <td>{{item.niveau}}</td>
+                      <!-- <div *ngFor="let item of dataClasse"> -->
+                        <td>{{element.niveau}}</td>
 
-                      </div>
+                      <!-- </div> -->
                       <td>{{element.annee}} </td>
                       <td>
                          <div class="d-flex justify-content-evenly">
@@ -174,7 +174,7 @@
           </div>
           <div class="col-md-12">
             <label for="adresse" class="form-label">Classe:</label>
-            <select class="form-select form-select-sm mb-3" name="niveau" aria-label="Large select example" required="" [(ngModel)]="selectedClasse" #niveauVerif="ngModel"
+            <select class="form-select form-select-sm mb-3" name="niveau" aria-label="Large select example" required="" [(ngModel)]="formuStudent.niveau" #niveauVerif="ngModel"
             [ngClass]="{'is-invalid':niveauVerif.touched && !niveauVerif.valid}" >
             <div class="invalid-feedback">
               <span *ngIf="niveauVerif.errors">
