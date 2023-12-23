@@ -105,7 +105,7 @@ export class LoginpageComponent {
          // Si aucune donnée n'est présente dans le local storage, initialisez-le avec vos données par défaut
          localStorage.setItem('Schooluser', JSON.stringify(this.Schooluser));
      }
- 
+
      this.storeMatiere = localStorage.getItem('Matiere');
        if (this.storedUsers) {
          this.usersMat = JSON.parse(this.usersMat);

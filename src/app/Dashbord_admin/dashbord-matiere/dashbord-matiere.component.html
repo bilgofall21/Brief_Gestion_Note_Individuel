@@ -1,89 +1,123 @@
 <app-header-dasboard></app-header-dasboard>
-<div class="listeapprenent  mb-5">
-    <div class="container">
-    <div class="title text-center">
-      <h3 class="text-center fw-bold "><span class="material-symbols-outlined">
-        add_notes
-        </span >Liste des Classes </h3>
-    </div>
-    <div class="listecontainer" id="liste">
-      <div >
-       <button type="button" class="btn titre text-center mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-         Ajouter une matiére
-      </button>
-    </div>
 
-    <div class="card-body shadow-lg">
-      <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
-              <thead>
-                  <tr>
-                      <th appCouleurfond class="text-white fw-bold"> ID</th>
-                      <th appCouleurfond class="text-white fw-bold">Matiéres</th>
+<div class="container">
 
-                      <!-- <th appCouleurfond class="text-white fw-bold">Semestre </th> -->
-                    </tr>
-              </thead>
-              <tfoot>
-              </tfoot>
-              <tbody >
-                  <tr *ngFor="let matiere1 of Matiere " >
-                      <td> {{matiere1.id}}</td>
-                      <td>{{matiere1.matiiere}}</td>
+  <div class="container py-5"  id="#maCarteClasse">
+    <div class="row  d-flex justify-content-center">
+        <div class="col-6  ">
+            <div class="card rounded-0 border-0 shadow">
+                <div class="card-body p-5" appCouleurfond>
 
+                    <!--  Bootstrap table-->
+                    <div class="table-responsive">
+                      <button class="btn btn-outline-warning text-white fw-bold "  data-bs-toggle="modal" data-bs-target="#exampleModal-classe" >Ajouter</button>
+                        <table class="table" >
 
-                  </tr>
+                            <thead>
+                                <tr>
+                                    <th scope="col " class="text-white fw-bold "  >Nom Matiere</th>
+                                    <th scope="col " class="text-white fw-bold "  >Modifier</th>
+                                    <th scope="col " class="text-white fw-bold "  >Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let clas of usersMat">
+                                <tr >
+                                    <td class="bg-white fw-bold"> {{clas.matiere}} </td>
+                                    <td class="bg-white fw-bold">
+                                      <div class="d-flex justify-content-center">
+                                        <button class="btn text-white" appCouleurfond data-bs-toggle="modal" data-bs-target="#exampleModal-modif" (click)="selectElement(clas)" > <i class="bi bi-pencil-fill" style="font-size: 20px;"  ></i> </button>
+                                      </div>
 
-              </tbody>
-          </table>
-      </div>
-  </div>
-</div>
-  </div>
-</div>
+                                    </td>
+                                    <td class="bg-white fw-bold">
+                                      <div class="d-flex justify-content-center">
+                                        <button class="btn text-white"  appCouleurfond   (click)="supprimerElement(clas)"> <i class="bi bi-trash3-fill" style="font-size: 20px;" ></i> </button>
+                                      </div>
 
+                                    </td>
+                                </tr>
 
-<!-- Ajout classe  -->
+                            </tbody>
+                        </table>
+                    </div>
 
-<!-- Button trigger modal -->
-<div class="text-center">
-
-</div>
-
-<!-- Modal -->
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title fs-5 " id="staticBackdropLabel" >
-        <span class="material-symbols-outlined">
-          list_alt_add
-          </span>
-          Ajouter une matiere </h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-
-    <div class="modal-body">
-      <form action="" method ="post">
-
-
-
-
-        <div class="mb-3">
-            <label for="dateEvaluation" class="form-label">Matiere</label>
-            <input type="text" class="form-control" id="ajoutclasse" name="matiere" [(ngModel)] ="matieres" >
+                    <!-- Add rows button-->
+                    <!-- <a class="btn btn-primary rounded-0 btn-block"  href="#">Add new row</a> -->
+                </div>
+            </div>
         </div>
-      </form>
-      </div>
-
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-      <button type="button" class="btn btn-primary"  (click)="ajouterMatiere()">Enregistrer</button>
     </div>
+</div>
 
 
+
+</div>
+
+<!-- Moal ajout -->
+
+<div class="modal fade" id="exampleModal-classe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Classe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" accordion-header></button>
+      </div>
+      <div class="modal-body" novalidate>
+        <form action=""   #validClass="ngForm" >
+          <div class="col-md-12">
+            <label for="classe" class="form-label">Matiere:</label>
+            <input type="text" name="classe" class="form-control" id="matiere" placeholder="La matiere"  required [(ngModel)]=" formuMatiere.matiere" >
+            <div class="invalid-feedback">
+              <span >
+                veillez entrer votre classe
+              </span>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn mt-3 text-white fw-bold" type="submit" [disabled]="!validClass.valid" data-bs-dismiss="modal" appCouleurfond (click)="ajouterMatiere ()" >Ajouter</button>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
   </div>
+</div>
 
+<!-- modal modifier -->
+<div class="modal fade" id="exampleModal-modif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Apprenant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" accordion-header></button>
+      </div>
+      <div class="modal-body" *ngIf="emelementSelectioner" >
+        <form action="" (ngSubmit)="modifierElement ()"  #modifForm="ngForm" >
+          <div class="col-md-12">
+            <label for="prenom" class="form-label">Prenom:</label>
+            <input type="text" name="prenom" class="form-control" id="validationCustom01" placeholder="Prenom" required [(ngModel)]="emelementSelectioner.matiere" #modifPrenom="ngModel"
+            [ngClass]="{'is-invalid': modifPrenom.touched && !modifPrenom.valid}">
+            <div class="invalid-feedback">
+              <span *ngIf="modifPrenom.errors">
+              reineigner la class
+              </span>
+            </div>
+          </div>
 
+          <button class="btn btn-primary" type="submit"  [disabled]="!modifForm.valid">modifier</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 

@@ -56,7 +56,7 @@
                 <div class="modal-body bg-body-secondary">
                       <div class="mb-3">
                         <label for="semestre" class="form-label">semestre de l'évaluation</label>
-                        <select class="form-select" id="semestre" name="semestre" [(ngModel)]="addProf.semestre"    required>
+                        <select class="form-select" id="semestre" name="semestre" [(ngModel)]="formuEvaluation.semestre"    required>
                             <option selected disabled value="">Choisis le semestre  d'évaluation</option>
                             <option>Semestre1</option>
                             <option>Semestre 2</option>
@@ -66,7 +66,7 @@
                     </div>
                      <div class="mb-3">
                       <label for="type" class="form-label">Type de l'évaluation</label>
-                      <select class="form-select" id="type" name="type" [(ngModel)]="addProf.type"    required>
+                      <select class="form-select" id="type" name="type" [(ngModel)]="formuEvaluation.type"    required>
                           <option selected disabled value="">Choisis le type  d'évaluation</option>
                           <option>Devoir</option>
                           <option>Examen</option>
@@ -75,23 +75,19 @@
                   </div>
                      <div class="mb-3">
                         <label for="matiere" class="form-label">Matiere</label>
-                        <select class="form-select" id="matiere" [(ngModel)]="addProf.matiere"   required>
-                          <option selected disabled value="">Choisissez la matière</option>
-                          <option>Anglais</option>
-                          <option>Analyse</option>
-                          <option>Algèbre</option>
-                          <option>Biologie</option>
-                          <option>Chimiee</option>
+                        <select class="form-select" id="matiere" [(ngModel)]="formuEvaluation.matiere"   required>
+                          <option *ngFor=" let item of dataMatiere" [value]="item.matiere">{{item.matiere}} </option>
+
                         </select>
                       </div>
 
                     <div class="mb-3">
                         <label for="date" class="form-label">Mettez la date de l'évaluation</label>
-                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="addProf.date" >
+                        <input type="date" class="form-control" id="date" name="date" [(ngModel)]="formuEvaluation.date" >
                      </div>
                     <div class="mb-3">
                         <label for="etat" class="form-label">etat</label>
-                        <select class="form-select" id="etat"  [(ngModel)]="addProf.etat"required >
+                        <select class="form-select" id="etat"  [(ngModel)]="formuEvaluation.etat"required >
                           <option selected disabled value="">Choisissez la etat</option>
                           <option>A Faire</option>
                           <option>Encours</option>
@@ -101,23 +97,19 @@
                       </div>
                     <div class="mb-3">
                         <label for="niveau" class="form-label">Classe</label>
-                        <select class="form-select" id="niveau"  [(ngModel)]="addProf.niveau"required >
-                          <option selected disabled value="">Choisissez la Classe</option>
-                          <option>Licence 1</option>
-                          <option>Licence 2</option>
-                          <option>Licence 3</option>
-                          <option>Master 1</option>
-                          <option>Master 2</option>
+                        <select class="form-select" id="niveau"  [(ngModel)]="formuEvaluation.niveau"required >
+                          <option *ngFor="let item of dataClasse" [value]="item.niveau"> {{item.niveau}} </option>
+
                         </select>
                       </div>
-                      <div class="mb-3">
+                      <!-- <div class="mb-3">
                         <label for="professeur" class="form-label">Mettez la professeur de l'évaluation</label>
-                        <input type="professeur" class="form-control" id="professeur" name="professeur" [(ngModel)]="addProf.professeur" >
-                     </div>
+                        <input type="professeur" class="form-control" id="professeur" name="professeur" [(ngModel)]="formuEvaluation.professeur" >
+                     </div> -->
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="submit" class="btn btn-primary" (click)="addEvaluation()">Enregistrer</button>
+                <!-- <button type="button" class="btn btn-secondary" >Fermer</button> -->
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="addEvaluation()">Enregistrer</button>
                 </div>
             </div>
             </div>
@@ -131,7 +123,7 @@
     <!-- Modal -->
             <form class="col-8 navbar-search">
                 <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="rechercher une evaluation" 
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="rechercher une evaluation"
                         aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="filterValue" (input)="onSearch()">
                     <div class="input-group-append">
                         <button class="btn " type="button" appCouleurfond>
@@ -145,16 +137,16 @@
 
   <!-- fin recherchebar -->
 
-  
-  
+
+
       <div class="container shadow mt-5  " >
          <!-- carte bouclé -->
          <div class=" row  gap-3 rowEval px-3 py-3">
-              <div class="card col-4  "  *ngFor="let evalue of Evaluation" >
-                <img src="data:image/jpeg;base64,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" class="card-img-top" alt="...">
+              <div class="card col-4  "  *ngFor="let evalue of userEvaluation">
+                <img src="https://img.freepik.com/vecteurs-libre/illustration-concept-examens_114360-2754.jpg?size=626&ext=jpg&ga=GA1.1.2145246215.1689776414&semt=ais" class="card-img-top" alt="...">
                 <div class="card-body bg-body-tertiary " >
                   <h3 class="card-title text-center " style="border: 4px solid #457a7469;">Evaluation à venir</h3>
-                    
+
                     <ul style="list-style: none; font-size: 18px; font-weight: 700;">
                       <li class="card-title"> Semestre:{{evalue.semestre}}</li>
                       <li class="card-title"> Type:{{evalue.type}}</li>
@@ -188,8 +180,8 @@
           </div>
               <div class="modal-body" >
                     <!-- Button trigger modal -->
-                         
-                          <div class="mb-3">
+
+                          <!-- <div class="mb-3">
                             <label for="prenomEleve" class="form-label">Prenom </label>
                             <input type="text" class="form-control" id="prenomEleve" name="prenomEleve" [(ngModel)]="maClasse.prenomEleve"    >
                           </div>
@@ -211,8 +203,8 @@
                               <label for="noteEleve" class="form-label">Note </label>
                               <input type="number" class="form-control" id="noteEleve" name="noteEleve" [(ngModel)]="maClasse.noteEleve">
                             </div>
-                            <button class="btn btn-primary" (click)="addeClasse()">Ajouter</button>
-                    
+                            <button class="btn btn-primary" (click)="addeClasse()">Ajouter</button> -->
+
                             <!-- tableau affiche -->
                               <div class=" container card-body shadow-lg mt-5  bg-white">
                                 <div  class=" table-responsive  ">
@@ -233,7 +225,7 @@
                                         <td>{{liste.classEleve}}</td>
                                         <td>{{liste.noteEleve}}</td>
                                       </tr>
-                                      
+
                                     </tbody>
                                   </table>
                                   </div>

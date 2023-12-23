@@ -1,99 +1,155 @@
 <app-header-dasboard></app-header-dasboard>
-<div class="listeapprenent  mb-5">
-    <div class="container">
-    <div class="title text-center">
-      <h3 class="text-center fw-bold "><span class="material-symbols-outlined">
-        add_notes
-        </span >Liste des Classes </h3>
-    </div>
-    <div class="listecontainer" id="liste">
-      <div >
-       <button type="button" class="btn titre text-center mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-          Ajouter une classe
-      </button>
-    </div>
 
-    <div class="card-body shadow-lg">
-      <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
-              <thead>
-                  <tr>
-                      <th appCouleurfond class="text-white fw-bold"> ID</th>
-                      <th appCouleurfond class="text-white fw-bold">Niveau</th>
-                      <th appCouleurfond class="text-white fw-bold">Effectifs </th>
-                      <!-- <th appCouleurfond class="text-white fw-bold">Semestre </th> -->
-                    </tr>
-              </thead>
-              <tfoot>
-              </tfoot>
-              <tbody >
-                  <tr *ngFor="let classe1 of userClasse" >
-                      <td> {{classe1.id}}</td>
-                      <td>{{classe1.niveau}}</td>
-                      <td>{{classe1.effectif  }}</td>
-                      
-                  </tr>
+<!-- <div class="container"> -->
 
-              </tbody>
-          </table>
-      </div>
-  </div>
-</div>
-  </div>
-</div>
+<div class="container py-5"  id="#maCarteClasse">
+    <div class="row  d-flex justify-content-center">
+        <div class="col-6  ">
+            <div class="card rounded-0 border-0 shadow">
+                <div class="card-body p-5" appCouleurfond>
 
+                    <!--  Bootstrap table-->
+                    <div class="table-responsive">
+                      <button class="btn btn-outline-warning text-white fw-bold "  data-bs-toggle="modal" data-bs-target="#exampleModal-classe" >Ajouter</button>
+                        <table class="table" >
 
-<!-- Ajout classe  -->
+                            <thead>
+                                <tr>
+                                    <th scope="col " class="text-white fw-bold "  >Nom classe</th>
+                                    <th scope="col" class="text-white fw-bold" >Effectifs</th>
+                                    <th scope="col" class="text-white fw-bold" >Modifier</th>
+                                    <th scope="col" class="text-white fw-bold" >Supprimer</th>
 
-<!-- Button trigger modal -->
-<div class="text-center">
+                                </tr>
+                            </thead>
+                            <tbody  >
+                                <tr *ngFor="let element of userClasse">
 
-</div>
+                                    <td class="bg-white fw-bold"> {{element.niveau}} </td>
+                                    <td class="bg-white fw-bold"> {{element.effectif}} </td>
+                                    <td class="bg-white fw-bold" > 
+                                      <div class="d-flex justify-content-center">
+                                        <button class="btn text-white" data-bs-toggle="modal" type="submit" data-bs-target="#exampleModal-modif" appCouleurfond (click)="selectElement(element)" > <i class="bi bi-pencil-fill" style="font-size: 20px;"  ></i> </button>
+                                      </div>
+                                    </td>
+                                    <td class="bg-white fw-bold" > 
+                                      <div class="d-flex justify-content-center">
+                                        <button class="btn text-white" data-bs-toggle="modal" type="submit"  appCouleurfond (click)="supprimerElement(element)" > <i class="bi bi-trash3-fill" style="font-size: 20px;" ></i> </button>
+                                      </div>
+                                    </td>
 
-<!-- Modal -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title fs-5 " id="staticBackdropLabel" >  
-        <span class="material-symbols-outlined">
-          list_alt_add
-          </span>
-          Ajouter une classe </h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-
-    <div class="modal-body">
-      <form action="" method ="post">
-       
-    
-        <div class="mb-3">
-            <label for="validationDefault04" class="form-label">Niveau</label>
-            <select class="form-select"  name="niveau" for ="niveau" required   [(ngModel)] ="niveauClasse">
-              <option selected disabled value="">Choisissez le niveau </option>
-              <option value="licence 1">Licence 1</option>
-              <option value="licence 2">Licence 2</option>
-              <option value="licence 3">Licence 3</option>
-              <option value="Master 1">Master 1</option>
-              <option value="Master 2">Master 2</option>
-            </select>
-          </div>
-        
-        <div class="mb-3">
-            <label for="dateEvaluation" class="form-label">Effectifs</label>
-            <input type="number" class="form-control" id="ajoutclasse" name="effectif" [(ngModel)] ="effectifClasse" >
+                    <!-- Add rows button-->
+                    <!-- <a class="btn btn-primary rounded-0 btn-block"  href="#">Add new row</a> -->
+                </div>
+            </div>
         </div>
-      </form>
-      </div>
-
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-      <button type="button" class="btn btn-primary"  (click)="ajouterClasse()">Enregistrer</button>
     </div>
+</div>
+
+<!-- </div> -->
+
+<!-- modal ajout -->
+
+<div class="modal fade" id="exampleModal-classe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Classe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" accordion-header></button>
+      </div>
+      <div class="modal-body" novalidate>
+        <form action=""   #validClass="ngForm" >
+          <div class="col-md-12">
+            <label for="classe" class="form-label">Classe:</label>
+            <input type="text" name="classe" class="form-control" id="classe" placeholder="La classe"  required [(ngModel)]="formuClass.niveau " #verifClass="ngModel" [ngClass]="{'is-invalid': verifClass.touched && !verifClass.valid}" >
+            <div class="invalid-feedback">
+              <span *ngIf="verifClass.errors">
+                veillez entrer votre classe
+              </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label for="effectif" class="form-label">Effectif:</label>
+            <input type="number" name="effectif" class="form-control" id="effectif" placeholder="La classe"  required [(ngModel)]="formuClass.effectif "  maxlength="30" required #verifEffectif="ngModel" [ngClass]="{'is-invalid': verifEffectif.touched && !verifEffectif.valid}" >
+            <div class="invalid-feedback">
+              <span *ngIf="verifEffectif.errors?.['required']">
+                veillez entrer un effectif pour la classe
+              </span>
+              <span *ngIf="verifEffectif.errors?.['maxlength']">
+                Effectif ne depasse pas 30 apprenaant
+              </span>
 
 
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn mt-3 text-white fw-bold" type="submit" [disabled]="!validClass.valid" data-bs-dismiss="modal" appCouleurfond (click)="ajouterClass()" >Ajouter</button>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
   </div>
- 
+</div>
 
-  
+<!-- modal ajout fin -->
+
+<!-- modal modifier -->
+
+<div class="modal fade" id="exampleModal-modif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Classe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" accordion-header></button>
+      </div>
+      <div class="modal-body" novalidate *ngIf="elementSelectioner">
+        <form action=""   #validClass="ngForm"  >
+          <div class="col-md-12">
+            <label for="niveau" class="form-label">Classe:</label>
+            <input type="text" name="niveau" class="form-control" id="niveau" placeholder="La classe"  required [(ngModel)]="elementSelectioner.niveau " #verifClass="ngModel" [ngClass]="{'is-invalid': verifClass.touched && !verifClass.valid}" >
+            <div class="invalid-feedback">
+              <span *ngIf="verifClass.errors">
+                veillez entrer votre classe
+              </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label for="effectif" class="form-label">Effectif:</label>
+            <input type="number" name="effectif" class="form-control" id="effectif" placeholder="La classe"  required [(ngModel)]="elementSelectioner.effectif "  maxlength="30" required #verifEffectif="ngModel" [ngClass]="{'is-invalid': verifEffectif.touched && !verifEffectif.valid}" >
+            <div class="invalid-feedback">
+              <span *ngIf="verifEffectif.errors?.['required']">
+                veillez entrer un effectif pour la classe
+              </span>
+              <span *ngIf="verifEffectif.errors?.['maxlength']">
+                Effectif ne depasse pas 30 apprenaant
+              </span>
+
+
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn mt-3 text-white  btn-primary" type="submit" [disabled]="!validClass.valid" data-bs-dismiss="modal" (click)="modifierElement()" >Modifier</button>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
