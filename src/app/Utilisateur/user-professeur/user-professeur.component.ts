@@ -129,16 +129,24 @@ recupMatiere : any;
 
 
 addEvaluation(){
-this.formuEvaluation.id = this.userEvaluation.length + 1
-// DESTRUCTURING POUR AJOUT DE CHAK ELEMENT DANS TABLEAU
-this.userEvaluation.push({...this.formuEvaluation});
-// vider les champs apres ajout
-this.formuEvaluation ={};
-// stock dans le localstorage
-this.saveEvaluation ();
+let evaluSemestre = this.formuEvaluation.semestre;
+let evaluClasse = this.formuEvaluation.niveau;
+let evaluMatiere = this.formuEvaluation.matiere;
+let evaluDate = this.formuEvaluation.date;
+let evaluType =this.formuEvaluation.type;
+let evaluEtat = this.formuEvaluation.etat;
 
-
-
+  // ajout de l'element avec la methode push de javascript
+  this.userEvaluation.push({
+    semestre : evaluSemestre,
+    niveau : evaluClasse,
+    matiere : evaluMatiere,
+    type : evaluType,
+    date : evaluDate,
+    etat : evaluEtat,
+  })
+  this.formuEvaluation = {};
+  this.saveEvaluation();
  }
 
  saveEvaluation(){

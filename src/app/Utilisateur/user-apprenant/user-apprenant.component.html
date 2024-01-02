@@ -14,9 +14,9 @@
         src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.1.662083046.1696519376&semt=ais"
         alt="">
 
-          <div class="Information" *ngFor=" let item of dataapprenant" >
+          <div class="Information" *ngFor=" let item of filtreUserConnect()" >
 
-            <div class="" *ngIf="item.role==3 && item.etat==1 && item.id === idappreanant ">
+            <div class="" >
               <p> {{item.nom}} </p>
               <p>{{item.prenom}}</p>
               <p>{{item.email}}</p>
