@@ -62,6 +62,7 @@ export class UserApprenantComponent implements OnInit {
   dataapprenant! : any [];
 item: any;
 idappreanant : any;
+userConnect : any;
 
   ngOnInit(): void {
     this.recupapprenant = localStorage.getItem('Schooluser');
@@ -74,6 +75,23 @@ idappreanant : any;
   }
   this.formuStudent.id = this.dataapprenant.length + 1;
   this.idappreanant = this.formuStudent.id
+  console.log("look", this.idappreanant)
+  // :methode pour recupere l'id de celui qui s'est conncte
+  this.userConnect = this.dataapprenant.find(item => item.role === "3" && item.etat === "1");
+  if(this.userConnect){
+  console.warn("je me suis connecte", this.userConnect)
   }
+  }
+
+  // methode pour filtrer informaation du connecte
+
+
+filtreUserConnect () : any [] {
+  if(this.userConnect){
+    return this.dataapprenant.filter(item => item.role === "3" && item.etat === "1" && item.id === this.userConnect.id);
+  }
+  return [];
+};
+
 
 }
